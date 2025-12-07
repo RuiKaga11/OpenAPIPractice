@@ -1,12 +1,12 @@
 openapi: 3.1.1
 info:
   title: User Management API
-  description: ユーザーの登録と更新を行うAPI定義
+  description: "ユーザーの登録と更新を行うAPI定義"
   version: 1.0.0
 
 servers:
   - url: http://localhost:8080/api/v1
-    description: 開発サーバー
+    description: "開発サーバー"
 
 paths:
   # --- ユーザー登録 (POST) ---
@@ -15,10 +15,10 @@ paths:
       tags:
         - Users
       summary: 新規ユーザーの登録
-      description: 新しいユーザーアカウントを作成します。
+      description: "新しいユーザーアカウントを作成します。"
       operationId: createUser
       requestBody:
-        description: ユーザー作成に必要な情報
+        description: "ユーザー作成に必要な情報"
         required: true
         content:
           application/json:
@@ -26,7 +26,7 @@ paths:
               $ref: '#/components/schemas/UserCreateRequest' # 登録用スキーマを参照
       responses:
         "201":
-          description: 作成成功
+          description: "作成成功"
           content:
             application/json:
               schema:
@@ -42,19 +42,19 @@ paths:
       tags:
         - Users
       summary: 既存ユーザー情報の部分更新
-      description: 指定されたユーザーIDの情報を更新します。更新したいフィールドのみを送信します。
+      description: "指定されたユーザーIDの情報を更新します。更新したいフィールドのみを送信します。"
       operationId: updateUser
       parameters:
         - name: userId
           in: path
-          description: 更新対象のユーザーID
+          description: "更新対象のユーザーID"
           required: true
           schema:
             type: integer
             format: int64
             minimum: 1
       requestBody:
-        description: 更新するユーザー情報（部分更新）
+        description: "更新するユーザー情報（部分更新）"
         required: true
         content:
           application/json:
@@ -62,7 +62,7 @@ paths:
               $ref: '#/components/schemas/UserUpdateRequest' # 更新用スキーマを参照
       responses:
         "200":
-          description: 更新成功
+          description: "更新成功"
           content:
             application/json:
               schema:
@@ -83,16 +83,16 @@ components:
       properties:
         username:
           type: string
-          description: ユーザー名
+          description: "ユーザー名"
           example: tarou.yamada
         email:
           type: string
           format: email
-          description: メールアドレス
+          description: "メールアドレス"
           example: test@example.com
         password:
           type: string
-          description: パスワード
+          description: "パスワード"
           writeOnly: true # レスポンスには含まれない
       required:
         - username
@@ -102,16 +102,16 @@ components:
     # ユーザー更新リクエスト（PATCH /users/{userId} のリクエストボディ）
     UserUpdateRequest:
       type: object
-      description: 部分更新のため、すべてのプロパティはオプション（requiredなし）
+      description: "部分更新のため、すべてのプロパティはオプション（requiredなし）"
       properties:
         username:
           type: string
-          description: ユーザー名
+          description: "ユーザー名"
           example: tarou.update
         email:
           type: string
           format: email
-          description: メールアドレス
+          description: "メールアドレス"
           example: new_test@example.com
         # パスワードは別のエンドポイントで更新する設計にすることが多い
       
@@ -122,22 +122,22 @@ components:
         id:
           type: integer
           format: int64
-          description: ユーザーID (システムが付与)
+          description: "ユーザーID (システムが付与)"
           readOnly: true
           example: 101
         username:
           type: string
-          description: ユーザー名
+          description: "ユーザー名"
           example: tarou.yamada
         email:
           type: string
           format: email
-          description: メールアドレス
+          description: "メールアドレス"
           example: test@example.com
         createdAt:
           type: string
           format: date-time
-          description: 作成日時
+          description: "作成日時"
           readOnly: true
       required:
         - id
@@ -148,7 +148,7 @@ components:
   # --- レスポンス定義 ---
   responses:
     BadRequest:
-      description: 不正なリクエスト (例: 必須フィールド欠落)
+      description: "不正なリクエスト (例: 必須フィールド欠落)"
       content:
         application/json:
           schema:
@@ -158,7 +158,7 @@ components:
                 type: string
                 example: "Invalid request data."
     NotFound:
-      description: 対象リソースが見つからない (例: 存在しないユーザーID)
+      description: "対象リソースが見つからない (例: 存在しないユーザーID)"
       content:
         application/json:
           schema:
@@ -168,7 +168,7 @@ components:
                 type: string
                 example: "User not found."
     UnprocessableEntity:
-      description: 入力データ検証エラー (例: メールアドレスの形式不正、ユーザー名が既に存在する)
+      description: "入力データ検証エラー (例: メールアドレスの形式不正、ユーザー名が既に存在する)"
       content:
         application/json:
           schema:
