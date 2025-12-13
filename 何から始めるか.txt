@@ -9,3 +9,15 @@ API実装
 API仕様書の作成でフロントが作れる
 登録APIと方針
 
+
+Openapiを書く
+→仕様書をhtmlに書き起こす（NPMでコマンド打つだけで終わる）
+↓このコマンド↓
+npx @redocly/cli build-docs openapi.yml --output user_api_docs.html
+
+
+API作って
+テストコード作って
+CI/CD作ったら完璧
+
+
